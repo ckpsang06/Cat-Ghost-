@@ -6,7 +6,16 @@
 #include "Entity.h"
 #include "mainObject.h"
 
+enum GameStateName {
+    GameOpenning,
+    GamePlaying,
+    GameEnding,
+    TotalGameState
+};
+
 enum GameTextureName {
+    Menu1Texture,
+    Menu1_2Texture,
     BackGroundTexture,
     CatTexture,
     HeartTexture,
@@ -23,18 +32,19 @@ private:
     bool isRunning;
     SDL_Window *window;
     SDL_Renderer *renderer;
-    
+
     SDL_Texture* GameTexture[TotalGameTexutre] = {NULL};
     Cat cat[TotalCatState];
     Entity heart;
 
+    int GameState;
 public:
     Game();
     void initSDL(const char *p_title, int p_w, int p_h);
     void loadMedia();
     void initEntity();
     SDL_Texture *loadTexture(const char *p_filePath);
-    
+
     bool running();
     void clear();
     void handleEvents();
@@ -44,4 +54,5 @@ public:
     void gameRender();
     void cleanUp();
     void gameLoop();
+    bool isHoveringPlay = false;
 };

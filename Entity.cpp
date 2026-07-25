@@ -9,18 +9,18 @@ Entity::Entity() {
     flip = SDL_FLIP_NONE;
 }
 
-void Entity::init(SDL_Texture *p_tex, int p_w, int p_h, int numFrames, int frame_delay) {
-    texture = p_tex;
-    width = p_w;
-    height = p_h;
-    frameDelay = frame_delay;
-    int w_tex = 0, h_tex = 0;
-    SDL_QueryTexture(p_tex, NULL, NULL, &w_tex, &h_tex);
-    int w_frame = w_tex / numFrames, h_frame = h_tex;
-    for (int i = 0; i < numFrames; i++) {
-        frames.push_back({i * w_frame, 0, w_frame, h_frame});
+    void Entity::init(SDL_Texture *p_tex, int p_w, int p_h, int numFrames, int frame_delay) {
+        texture = p_tex;
+        width = p_w;
+        height = p_h;
+        frameDelay = frame_delay;
+        int w_tex = 0, h_tex = 0;
+        SDL_QueryTexture(p_tex, NULL, NULL, &w_tex, &h_tex);
+        int w_frame = w_tex / numFrames, h_frame = h_tex;
+        for (int i = 0; i < numFrames; i++) {
+            frames.push_back({i * w_frame, 0, w_frame, h_frame});
+        }
     }
-}
 
 void Entity::setX(double p_x) { x = p_x; }
 void Entity::setY(double p_y) { y = p_y; }

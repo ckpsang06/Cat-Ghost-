@@ -7,6 +7,8 @@ Game::Game() {
     isRunning = true;
     window = NULL;
     renderer = NULL;
+    GameState = GameOpenning;
+    isHoveringPlay = false;
 }
 
 bool Game::running() { return isRunning; }
@@ -35,6 +37,8 @@ SDL_Texture *Game::loadTexture(const char *p_filePath) {
 
 void Game::loadMedia() {
     GameTexture[BackGroundTexture] = loadTexture("res/images/background.png");
+    GameTexture[Menu1Texture] = loadTexture("res/images/menu1.png");
+    GameTexture[Menu1_2Texture] = loadTexture("res/images/menu1_2.png");
     GameTexture[CatTexture] = loadTexture("res/images/main.png");
     GameTexture[HeartTexture] = loadTexture("res/images/heart.png");
 }
@@ -55,9 +59,42 @@ void Game::clear() {
 
 void Game::handleEvents() {
     SDL_Event event;
-    SDL_PollEvent(&event);
-    if (event.type == SDL_QUIT) {
-        isRunning = false;
+    int mouseX, mouseY;
+
+    while (SDL_PollEvent(&event)) {
+        if (event.type == SDL_QUIT) {
+            isRunning = false;
+        }
+
+        // Chỉ xử lý logic chuột khi đang ở màn hình Menu
+        if (GameState == GameOpenning) {
+            // Lấy tọa độ hiện tại của chuột
+            SDL_GetMouseState(&mouseX, &mouseY);
+
+            // ĐỊNH NGHĨA VÙNG NÚT TAM GIÁC (Bounding Box)
+            SDL_Rect playButton = { 600, 80, 270, 356 }; // x, y, width, height
+
+            // Kiểm tra xem chuột có nằm trong vùng nút không
+            bool isInside = (mouseX >= playButton.x && mouseX <= playButton.x + playButton.w &&
+                             mouseY >= playButton.y && mouseY <= playButton.y + playButton.h);
+
+            // 1. Sự kiện di chuyển chuột (Hover)
+            if (event.type == SDL_MOUSEMOTION) {
+                isHoveringPlay = isInside;
+            }
+
+            // 2. Sự kiện click chuột trái
+            if (event.type == SDL_MOUSEBUTTONDOWN) {
+                if (event.button.button == SDL_BUTTON_LEFT && isInside) {
+                    GameState = GamePlaying; // Chuyển sang màn chơi
+                }
+            }
+
+            // có thể nhấn enter để bắt đầu màn chơi
+            if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN) {
+                GameState = GamePlaying;
+            }
+        }
     }
 }
 
@@ -79,26 +116,39 @@ void Game::render(Entity &p_entity, SDL_Rect src) {
     if (p_entity.getFlip() == SDL_FLIP_HORIZONTAL)
         SDL_RenderCopyEx(renderer, p_entity.getTexture(), &src, &dst, 0.0, NULL, SDL_FLIP_HORIZONTAL);
     else
-        SDL_RenderCopy(renderer, p_entity.getTexture(), &src, &dst);
+SDL_RenderCopy(renderer, p_entity.getTexture(), &src, &dst);
 }
 
 void Game::gameRender() {
     clear();
 
-    // Vẽ background
-    render(GameTexture[BackGroundTexture]);
+    if (GameState == GameOpenning) {
+        // Đổi hình ảnh menu dựa vào trạng thái hover chuột
+        if (isHoveringPlay) {
+            render(GameTexture[Menu1_2Texture]); // Render menu phát sáng
+        } else {
+            render(GameTexture[Menu1Texture]);   // Render menu bình thường
+        }
 
-    // Vẽ Cat đang đứng yên (Idle)
-    render(cat[CatIdle], cat[CatIdle].getCurrentFrame());
+        SDL_RenderPresent(renderer);
+        return;
+    }
 
-    // Vẽ thanh máu (Heart)
-    int hx = 20, hy = 20;
-    for (int i = 1; i <= CatHealth; i++) {
-        heart.setX(hx);
-        heart.setY(hy);
-        if (i <= cat[CatIdle].getHealth()) render(heart, heart.getFrame(1));
-        else render(heart, heart.getFrame(0));
-        hx += heart.getWidth() + 20;
+    if (GameState == GamePlaying) {
+        render(GameTexture[BackGroundTexture]);
+        render(cat[CatIdle], cat[CatIdle].getCurrentFrame());
+
+        int hx = 20, hy = 20;
+        for (int i = 1; i <= CatHealth; i++) {
+            heart.setX(hx);
+            heart.setY(hy);
+            if (i <= cat[CatIdle].getHealth()) render(heart, heart.getFrame(1));
+            else render(heart, heart.getFrame(0));
+            hx += heart.getWidth() + 20;
+        }
+
+        SDL_RenderPresent(renderer);
+        return;
     }
 
     SDL_RenderPresent(renderer);
