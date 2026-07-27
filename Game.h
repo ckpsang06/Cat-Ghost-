@@ -2,9 +2,12 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_ttf.h>
+#include <SDL_mixer.h>
 #include <iostream>
 #include "Entity.h"
 #include "mainObject.h"
+#include "Ghost.h"
 
 enum GameStateName {
     GameOpenning,
@@ -18,6 +21,7 @@ enum GameTextureName {
     Menu1_2Texture,
     BackGroundTexture,
     CatTexture,
+    GhostTexture,
     HeartTexture,
     TotalGameTexutre
 };
@@ -34,10 +38,19 @@ private:
     SDL_Renderer *renderer;
 
     SDL_Texture* GameTexture[TotalGameTexutre] = {NULL};
+    TTF_Font* font = NULL;
     Cat cat[TotalCatState];
     Entity heart;
 
+    Mix_Music* PlayingMusic = NULL;
+    Mix_Chunk* ghostDieSound = NULL;
+
     int GameState;
+    //Quản lý ma
+    std::vector<Ghost> vecGhost;
+    int spawnGhostTime = 0;
+    int spawnGhostDelay = 1500; //Tốc độ sinh ma
+    int SCORE = 0;
 public:
     Game();
     void initSDL(const char *p_title, int p_w, int p_h);
@@ -54,4 +67,9 @@ public:
     void gameRender();
     void cleanUp();
     void gameLoop();
+<<<<<<< Updated upstream
+=======
+    bool isHoveringPlay = false;
+    void spawnGhost();
+>>>>>>> Stashed changes
 };

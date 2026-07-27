@@ -5,19 +5,19 @@
 1784598680 c:\users\loq\desktop\backup\5\new folder\cat ghost\cat.h
 	"Entity.h"
 
-1784602121 c:\users\loq\desktop\backup\5\new folder\cat ghost\entity.h
+1785154170 c:\users\loq\desktop\backup\5\new folder\cat ghost\entity.h
 	<SDL.h>
 	<SDL_image.h>
 	<vector>
+	<bits/stdc++.h>
 
-1784694540 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\entity.cpp
+1785148704 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\entity.cpp
 	"Entity.h"
 
-1784598652 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\ghost.cpp
+1785154823 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\ghost.cpp
 	"Ghost.h"
-	"Utilities.h"
 
-1784598680 c:\users\loq\desktop\backup\5\new folder\cat ghost\ghost.h
+1785154845 c:\users\loq\desktop\backup\5\new folder\cat ghost\ghost.h
 	"Entity.h"
 
 1784599879 c:\users\loq\desktop\backup\5\new folder\cat ghost\utilities.h
@@ -27,34 +27,41 @@
 1784598652 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\utilities.cpp
 	"Utilities.h"
 
-1784626459 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\main.cpp
+1785148706 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\main.cpp
 	<SDL.h>
 	"Game.h"
 	"CommonFunc.h"
 	"Entity.h"
 
-1784693017 c:\users\loq\desktop\backup\5\new folder\cat ghost\game.h
+1785155954 c:\users\loq\desktop\backup\5\new folder\cat ghost\game.h
 	<SDL.h>
 	<SDL_image.h>
+	<SDL_ttf.h>
+	<SDL_mixer.h>
 	<iostream>
 	"Entity.h"
 	"mainObject.h"
+	"Ghost.h"
 
 1784599884 c:\users\loq\desktop\backup\5\new folder\cat ghost\constants.h
 	<bits/stdc++.h>
 	<SDL.h>
 
+<<<<<<< Updated upstream
 1784696108 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\game.cpp
+=======
+1785155832 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\game.cpp
+>>>>>>> Stashed changes
 	"Game.h"
 	"CommonFunc.h"
 
-1784602121 c:\users\loq\desktop\backup\5\new folder\cat ghost\mainobject.h
+1785148706 c:\users\loq\desktop\backup\5\new folder\cat ghost\mainobject.h
 	"Entity.h"
 
-1784602121 c:\users\loq\desktop\backup\5\new folder\cat ghost\commonfunc.h
+1785148704 c:\users\loq\desktop\backup\5\new folder\cat ghost\commonfunc.h
 	<bits/stdc++.h>
 	<SDL.h>
 
-1784602121 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\mainobject.cpp
+1785148706 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\mainobject.cpp
 	"mainObject.h"
 
