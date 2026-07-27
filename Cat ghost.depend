@@ -1,0 +1,60 @@
+# depslib dependency file v1.0
+1784598652 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\cat.cpp
+	"Cat.h"
+
+1784598680 c:\users\loq\desktop\backup\5\new folder\cat ghost\cat.h
+	"Entity.h"
+
+1784602121 c:\users\loq\desktop\backup\5\new folder\cat ghost\entity.h
+	<SDL.h>
+	<SDL_image.h>
+	<vector>
+
+1784694540 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\entity.cpp
+	"Entity.h"
+
+1784598652 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\ghost.cpp
+	"Ghost.h"
+	"Utilities.h"
+
+1784598680 c:\users\loq\desktop\backup\5\new folder\cat ghost\ghost.h
+	"Entity.h"
+
+1784599879 c:\users\loq\desktop\backup\5\new folder\cat ghost\utilities.h
+	<SDL.h>
+	<bits/stdc++.h>
+
+1784598652 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\utilities.cpp
+	"Utilities.h"
+
+1784626459 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\main.cpp
+	<SDL.h>
+	"Game.h"
+	"CommonFunc.h"
+	"Entity.h"
+
+1784693017 c:\users\loq\desktop\backup\5\new folder\cat ghost\game.h
+	<SDL.h>
+	<SDL_image.h>
+	<iostream>
+	"Entity.h"
+	"mainObject.h"
+
+1784599884 c:\users\loq\desktop\backup\5\new folder\cat ghost\constants.h
+	<bits/stdc++.h>
+	<SDL.h>
+
+1784696108 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\game.cpp
+	"Game.h"
+	"CommonFunc.h"
+
+1784602121 c:\users\loq\desktop\backup\5\new folder\cat ghost\mainobject.h
+	"Entity.h"
+
+1784602121 c:\users\loq\desktop\backup\5\new folder\cat ghost\commonfunc.h
+	<bits/stdc++.h>
+	<SDL.h>
+
+1784602121 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\mainobject.cpp
+	"mainObject.h"
+
