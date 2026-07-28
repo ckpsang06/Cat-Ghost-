@@ -67,9 +67,7 @@ public:
     void gameRender();
     void cleanUp();
     void gameLoop();
-<<<<<<< Updated upstream
-=======
+
     bool isHoveringPlay = false;
     void spawnGhost();
->>>>>>> Stashed changes
 };

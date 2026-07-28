@@ -5,7 +5,7 @@
 1784598680 c:\users\loq\desktop\backup\5\new folder\cat ghost\cat.h
 	"Entity.h"
 
-1785154170 c:\users\loq\desktop\backup\5\new folder\cat ghost\entity.h
+1785157669 c:\users\loq\desktop\backup\5\new folder\cat ghost\entity.h
 	<SDL.h>
 	<SDL_image.h>
 	<vector>
@@ -14,10 +14,10 @@
 1785148704 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\entity.cpp
 	"Entity.h"
 
-1785154823 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\ghost.cpp
+1785157669 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\ghost.cpp
 	"Ghost.h"
 
-1785154845 c:\users\loq\desktop\backup\5\new folder\cat ghost\ghost.h
+1785157669 c:\users\loq\desktop\backup\5\new folder\cat ghost\ghost.h
 	"Entity.h"
 
 1784599879 c:\users\loq\desktop\backup\5\new folder\cat ghost\utilities.h
@@ -33,7 +33,7 @@
 	"CommonFunc.h"
 	"Entity.h"
 
-1785155954 c:\users\loq\desktop\backup\5\new folder\cat ghost\game.h
+1785231151 c:\users\loq\desktop\backup\5\new folder\cat ghost\game.h
 	<SDL.h>
 	<SDL_image.h>
 	<SDL_ttf.h>
@@ -47,11 +47,13 @@
 	<bits/stdc++.h>
 	<SDL.h>
 
-<<<<<<< Updated upstream
-1784696108 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\game.cpp
-=======
-1785155832 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\game.cpp
->>>>>>> Stashed changes
+1784599884 ated upstream
+
+1785157669 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\game.cpp
+	"Game.h"
+	"CommonFunc.h"
+
+1785155832 shed changes
 	"Game.h"
 	"CommonFunc.h"
 

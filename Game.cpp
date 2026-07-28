@@ -88,18 +88,18 @@ void Game::clear() {
 
 void Game::handleEvents() {
     SDL_Event event;
+    int mouseX, mouseY;
 
     while (SDL_PollEvent(&event)) {
         if (event.type == SDL_QUIT) {
             isRunning = false;
         }
 
-        if (event.type == SDL_KEYDOWN) {
-            if (GameState == GameOpenning &&
-                event.key.keysym.sym == SDLK_RETURN) {
+        // Chỉ xử lý logic chuột khi đang ở màn hình Menu
+        if (GameState == GameOpenning) {
+            // Lấy tọa độ hiện tại của chuột
+            SDL_GetMouseState(&mouseX, &mouseY);
 
-<<<<<<< Updated upstream
-=======
             // ĐỊNH NGHĨA VÙNG NÚT TAM GIÁC (Bounding Box)
             SDL_Rect playButton = { 600, 80, 270, 356 }; // x, y, width, height
 
@@ -116,21 +116,16 @@ void Game::handleEvents() {
             if (event.type == SDL_MOUSEBUTTONDOWN) {
                 if (event.button.button == SDL_BUTTON_LEFT && isInside) {
                     GameState = GamePlaying; // Chuyển sang màn chơi
-                    // Tắt nhạc và bật nhạc
-                    Mix_HaltMusic();
-                    Mix_PlayMusic(PlayingMusic, -1);
                 }
             }
 
             // có thể nhấn enter để bắt đầu màn chơi
             if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN) {
->>>>>>> Stashed changes
                 GameState = GamePlaying;
             }
         }
     }
 }
-
 void Game::gameUpdate() {
     if (GameState != GamePlaying) return;
 
@@ -198,10 +193,17 @@ void Game::render(Entity &p_entity, SDL_Rect src) {
 void Game::gameRender() {
     clear();
     if (GameState == GameOpenning) {
-        render(GameTexture[Menu1Texture]);
+        // Đổi hình ảnh menu dựa vào trạng thái hover chuột
+        if (isHoveringPlay) {
+            render(GameTexture[Menu1_2Texture]); // Render menu phát sáng
+        } else {
+            render(GameTexture[Menu1Texture]);   // Render menu bình thường
+        }
+
         SDL_RenderPresent(renderer);
         return;
     }
+
     if (GameState == GamePlaying) {
         // Vẽ background
         render(GameTexture[BackGroundTexture]);
