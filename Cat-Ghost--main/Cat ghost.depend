@@ -1,0 +1,114 @@
+# depslib dependency file v1.0
+1784598652 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\cat.cpp
+	"Cat.h"
+
+1784598680 c:\users\loq\desktop\backup\5\new folder\cat ghost\cat.h
+	"Entity.h"
+
+1785157669 c:\users\loq\desktop\backup\5\new folder\cat ghost\entity.h
+	<SDL.h>
+	<SDL_image.h>
+	<vector>
+	<bits/stdc++.h>
+
+1785148704 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\entity.cpp
+	"Entity.h"
+
+1785157669 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\ghost.cpp
+	"Ghost.h"
+
+1785157669 c:\users\loq\desktop\backup\5\new folder\cat ghost\ghost.h
+	"Entity.h"
+
+1784599879 c:\users\loq\desktop\backup\5\new folder\cat ghost\utilities.h
+	<SDL.h>
+	<bits/stdc++.h>
+
+1784598652 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\utilities.cpp
+	"Utilities.h"
+
+1785148706 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\main.cpp
+	<SDL.h>
+	"Game.h"
+	"CommonFunc.h"
+	"Entity.h"
+
+1785231151 c:\users\loq\desktop\backup\5\new folder\cat ghost\game.h
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<SDL_mixer.h>
+	<iostream>
+	"Entity.h"
+	"mainObject.h"
+	"Ghost.h"
+
+1784599884 c:\users\loq\desktop\backup\5\new folder\cat ghost\constants.h
+	<bits/stdc++.h>
+	<SDL.h>
+
+1784599884 ated upstream
+
+1785157669 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\game.cpp
+	"Game.h"
+	"CommonFunc.h"
+
+1785155832 shed changes
+	"Game.h"
+	"CommonFunc.h"
+
+1785148706 c:\users\loq\desktop\backup\5\new folder\cat ghost\mainobject.h
+	"Entity.h"
+
+1785148704 c:\users\loq\desktop\backup\5\new folder\cat ghost\commonfunc.h
+	<bits/stdc++.h>
+	<SDL.h>
+
+1785148706 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\mainobject.cpp
+	"mainObject.h"
+
+1785743511 source:c:\users\asus\downloads\cat-ghost--main\cat-ghost--main\entity.cpp
+	"Entity.h"
+
+1785743511 c:\users\asus\downloads\cat-ghost--main\cat-ghost--main\entity.h
+	<SDL.h>
+	<SDL_image.h>
+	<vector>
+	<bits/stdc++.h>
+
+1785781699 source:c:\users\asus\downloads\cat-ghost--main\cat-ghost--main\game.cpp
+	"Game.h"
+	"CommonFunc.h"
+
+1785781368 c:\users\asus\downloads\cat-ghost--main\cat-ghost--main\game.h
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<SDL_mixer.h>
+	<iostream>
+	"Entity.h"
+	"mainObject.h"
+	"Ghost.h"
+
+1785743511 c:\users\asus\downloads\cat-ghost--main\cat-ghost--main\mainobject.h
+	"Entity.h"
+
+1785781408 c:\users\asus\downloads\cat-ghost--main\cat-ghost--main\ghost.h
+	"Entity.h"
+
+1785743511 c:\users\asus\downloads\cat-ghost--main\cat-ghost--main\commonfunc.h
+	<bits/stdc++.h>
+	<SDL.h>
+
+1785743511 source:c:\users\asus\downloads\cat-ghost--main\cat-ghost--main\ghost.cpp
+	"Ghost.h"
+
+1785743511 source:c:\users\asus\downloads\cat-ghost--main\cat-ghost--main\main.cpp
+	<SDL.h>
+	"Game.h"
+	"CommonFunc.h"
+	"Entity.h"
+
+1785743511 source:c:\users\asus\downloads\cat-ghost--main\cat-ghost--main\mainobject.cpp
+	"mainObject.h"
+
