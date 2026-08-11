@@ -19,11 +19,13 @@ enum GameTextureName {
     BackGroundTexture,
     CatTexture,
     HeartTexture,
+    CatAttackTexture,
     TotalGameTexutre
 };
 
 enum CatStateName {
     CatIdle,
+    CatAttack,
     TotalCatState
 };
 
@@ -36,6 +38,9 @@ private:
     SDL_Texture* GameTexture[TotalGameTexutre] = {NULL};
     Cat cat[TotalCatState];
     Entity heart;
+
+    bool isCatAttacking = false;
+    Uint32 attackStartTime = 0;
 
     int GameState;
 public:
