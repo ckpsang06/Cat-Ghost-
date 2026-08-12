@@ -1,3 +1,4 @@
+
  #include "Game.h"
 #include "CommonFunc.h"
 
@@ -11,28 +12,25 @@ Game::Game() {
 }
 
 bool Game::running() { return isRunning; }
-
 void Game::initSDL(const char *p_title, int p_w, int p_h) {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
-        std::cout << "Failed to initialize SDL: " << SDL_GetError() << "\n";
+        cout << "Failed to initialize SDL: " << SDL_GetError() << "\n";
+
     }
     if (IMG_Init(IMG_INIT_PNG | IMG_INIT_JPG) == 0) {
-        std::cout << "Failed to initialize SDL_image: " << IMG_GetError() << "\n";
+        cout << "Failed to initialize SDL_image: " << IMG_GetError() << "\n";
     }
-    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
-        std::cout << "Mix_OpenAudio Error: " << Mix_GetError() << "\n";
-    }
-
     window = SDL_CreateWindow(p_title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, p_w, p_h, SDL_WINDOW_SHOWN);
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+    isHoveringPlay = false;
 }
 
 SDL_Texture *Game::loadTexture(const char *p_filePath) {
     SDL_Texture *texture = NULL;
     texture = IMG_LoadTexture(renderer, p_filePath);
     if (texture == NULL) {
-        std::cout << "Failed to load texture: " << SDL_GetError() << "\n";
+        cout << "Failed to load texture: " << SDL_GetError() << "\n";
     }
     return texture;
 }
@@ -49,7 +47,7 @@ void Game::loadMedia() {
     GameTexture[AgainTexture] = loadTexture("res/images/again.png");
     GameTexture[Menu3Texture] = loadTexture("res/images/menu3.png");
     GameTexture[CatHurtTexture] = loadTexture("res/images/hurt.png");
-
+    GameTexture[CatAttackTexture] = loadTexture("res/images/attack.png");
     //fonts
     font = TTF_OpenFont("res/fonts/arial.ttf", 50);
     TTF_SetFontStyle(font, TTF_STYLE_NORMAL);
@@ -63,7 +61,7 @@ void Game::loadMedia() {
 }
 
 void Game::initEntity() {
-    cat[CatIdle].init(GameTexture[CatTexture], 100, 100, 20, 30);
+    cat[CatIdle].init(GameTexture[CatTexture], 100, 100, 20, 80); // Đã update delay animation
     cat[CatIdle].setHealth(CatHealth);
     cat[CatIdle].setX(SCREEN_WIDTH / 2);
     cat[CatIdle].setY(SCREEN_HEIGHT / 2);
@@ -71,6 +69,10 @@ void Game::initEntity() {
     cat[CatHurt].init(GameTexture[CatHurtTexture], 100, 100, 4, 100);
     cat[CatHurt].setX(SCREEN_WIDTH / 2);
     cat[CatHurt].setY(SCREEN_HEIGHT / 2);
+
+    cat[CatAttack].init(GameTexture[CatAttackTexture], 200, 200, 6, 80);
+    cat[CatAttack].setX(cat[CatIdle].getX() - 50);
+    cat[CatAttack].setY(cat[CatIdle].getY() - 50);
 
     heart.init(GameTexture[HeartTexture], 50, 50, 2, 0);
 
@@ -123,10 +125,8 @@ void Game::handleEvents() {
                 isHoveringPlay = isInside;
             }
 
-            if (event.type == SDL_MOUSEBUTTONDOWN) {
-                if (event.button.button == SDL_BUTTON_LEFT && isInside) {
-                    GameState = GamePlaying;
-                }
+            if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT && isInside) {
+                GameState = GamePlaying;
             }
 
             if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN) {
@@ -136,34 +136,36 @@ void Game::handleEvents() {
         // --- MÀN HÌNH CHƠI ---
         else if (GameState == GamePlaying) {
             if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN) {
-                GameState = GameWinning; // Ấn Enter ra màn hình Thắng (Menu 2)
+                GameState = GameWinning;
+            }
+
+            // Xử lý sự kiện Mèo tấn công khi click chuột
+            if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
+                if (!isCatHurt && !isCatAttacking) { // Đang bị thương thì ko đánh được
+                    isCatAttacking = true;
+                    attackStartTime = SDL_GetTicks();
+                    cat[CatAttack].setCurrentFrame(0);
+                }
             }
         }
         // --- MÀN HÌNH KẾT THÚC (THẮNG / THUA) ---
         else if (GameState == GameWinning || GameState == GameLosing) {
-            if (event.type == SDL_MOUSEBUTTONDOWN) {
-                if (event.button.button == SDL_BUTTON_LEFT) {
-                    int clickX = event.button.x;
-                    int clickY = event.button.y;
+            if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
+                int clickX = event.button.x;
+                int clickY = event.button.y;
 
-                    // Click nút Home
-                    if (clickX >= home.getX() && clickX <= home.getX() + home.getWidth() &&
-                        clickY >= home.getY() && clickY <= home.getY() + home.getHeight()) {
-                        GameState = GameOpenning;
-                    }
+                if (clickX >= home.getX() && clickX <= home.getX() + home.getWidth() &&
+                    clickY >= home.getY() && clickY <= home.getY() + home.getHeight()) {
+                    GameState = GameOpenning;
+                }
 
-                    // Click nút Again
-                    if (clickX >= again.getX() && clickX <= again.getX() + again.getWidth() &&
-                        clickY >= again.getY() && clickY <= again.getY() + again.getHeight()) {
-
-                        GameState = GamePlaying; // Chơi lại
-
-                        // Reset lại trạng thái ban đầu của mèo
-                        cat[CatIdle].setHealth(CatHealth);
-                        cat[CatIdle].setX(SCREEN_WIDTH / 2);
-                        cat[CatIdle].setY(SCREEN_HEIGHT / 2);
-                        vecGhost.clear(); // Xóa sạch ma cũ
-                    }
+                if (clickX >= again.getX() && clickX <= again.getX() + again.getWidth() &&
+                    clickY >= again.getY() && clickY <= again.getY() + again.getHeight()) {
+                    GameState = GamePlaying;
+                    cat[CatIdle].setHealth(CatHealth);
+                    cat[CatIdle].setX(SCREEN_WIDTH / 2);
+                    cat[CatIdle].setY(SCREEN_HEIGHT / 2);
+                    vecGhost.clear();
                 }
             }
         }
@@ -187,30 +189,25 @@ void Game::handleEvents() {
         }
     }
 }
+
 void Game::gameUpdate() {
     if (GameState != GamePlaying) return;
 
-    //Spawn ma theo thời gian
     if (SDL_GetTicks() - spawnGhostTime > spawnGhostDelay) {
         spawnGhost();
         spawnGhostTime = SDL_GetTicks();
     }
 
-    //Kiểm tra máu mèo
     if (cat[CatIdle].getHealth() <= 0) {
         Mix_HaltMusic();
-        // Tạm thời chuyển thẳng về menu hoặc xử lý logic GameEnding ở đây
-        GameState = GameLosing;// Duy Ếch : t đang để thua là trở về gameOpenning, thay gameOpenning thành GameLose khi hết máu nhé
+        GameState = GameLosing;
         return;
     }
 
-    //Cập nhật ma và xử lý tương tác
     for (int i = 0; i < (int)vecGhost.size(); i++) {
         auto &curGhost = vecGhost[i];
-
         if (curGhost.isDead()) continue;
 
-        // Nếu ma đang ở trạng thái tấn công, chỉ chạy animation, không di chuyển nữa
         if (curGhost.isAttacking()) {
             curGhost.update();
             continue;
@@ -220,11 +217,8 @@ void Game::gameUpdate() {
         int ghostY = curGhost.getY();
         int catX = cat[CatIdle].getX();
         int catY = cat[CatIdle].getY();
-
-        // Tính khoảng cách từ ma tới mèo
         double dist = distance(ghostX, ghostY, catX, catY);
 
-        // Nếu ở xa và chưa chết  Bay tới chỗ mèo
         if (dist > 100 && !curGhost.isDead()) {
             curGhost.GhostMoving(catX, catY);
         }
@@ -234,25 +228,30 @@ void Game::gameUpdate() {
 
             cat[CatIdle].setHealth(cat[CatIdle].getHealth() - 1);
             isCatHurt = true;
+            isCatAttacking = false; // Bị đánh thì hủy đòn đánh
             catHurtStartTime = SDL_GetTicks();
             cat[CatHurt].setCurrentFrame(0);
 
-            // Phát âm thanh va chạm
             if (ghostDieSound != NULL) {
                 Mix_PlayChannel(-1, ghostDieSound, 0);
             }
         }
     }
+
     vecGhost.erase(std::remove_if(vecGhost.begin(), vecGhost.end(),
                                   [](Ghost& g) { return g.isDead(); }),
                    vecGhost.end());
 
-    //Cập nhật animation của mèo
+    // Cập nhật Animation Mèo
     if (isCatHurt) {
         cat[CatHurt].update();
-        // 4 frame x 100ms delay = 400ms. Sau 400ms, mèo trở lại bình thường.
         if (SDL_GetTicks() - catHurtStartTime > 400) {
             isCatHurt = false;
+        }
+    } else if (isCatAttacking) {
+        cat[CatAttack].update();
+        if (SDL_GetTicks() - attackStartTime > 400) {
+            isCatAttacking = false;
         }
     } else if (cat[CatIdle].getHealth() > 0) {
         cat[CatIdle].update();
@@ -287,20 +286,21 @@ void Game::gameRender() {
     }
 
     if (GameState == GamePlaying) {
-        // Vẽ background
         render(GameTexture[BackGroundTexture]);
 
-        // Vẽ Cat và Ma
+        // Ưu tiên render Mèo bị thương > Mèo đánh > Mèo đứng yên
         if (isCatHurt) {
             render(cat[CatHurt], cat[CatHurt].getCurrentFrame());
+        } else if (isCatAttacking) {
+            render(cat[CatAttack], cat[CatAttack].getCurrentFrame());
         } else {
             render(cat[CatIdle], cat[CatIdle].getCurrentFrame());
         }
+
         for (auto &curGhost : vecGhost) {
             render(curGhost, curGhost.getCurrentFrame());
         }
 
-        // Vẽ thanh máu (Heart)
         int hx = 20, hy = 20;
         for (int i = 1; i <= CatHealth; i++) {
             heart.setX(hx);
@@ -309,22 +309,21 @@ void Game::gameRender() {
             else render(heart, heart.getFrame(0));
             hx += heart.getWidth() + 20;
         }
+
         SDL_RenderPresent(renderer);
         return;
     }
 
-    // MÀN HÌNH THẮNG
     if (GameState == GameWinning) {
-        render(GameTexture[Menu2Texture]); // Vẽ nền thắng
-        render(home, home.getCurrentFrame()); // Vẽ nút home
-        render(again, again.getCurrentFrame()); // Vẽ nút again
+        render(GameTexture[Menu2Texture]);
+        render(home, home.getCurrentFrame());
+        render(again, again.getCurrentFrame());
     }
 
-    // MÀN HÌNH THUA
     if (GameState == GameLosing) {
-        render(GameTexture[Menu3Texture]); // Vẽ nền thua
-        render(home, home.getCurrentFrame()); // Vẽ nút home
-        render(again, again.getCurrentFrame()); // Vẽ nút again
+        render(GameTexture[Menu3Texture]);
+        render(home, home.getCurrentFrame());
+        render(again, again.getCurrentFrame());
     }
 
     SDL_RenderPresent(renderer);

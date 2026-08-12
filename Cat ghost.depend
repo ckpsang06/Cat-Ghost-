@@ -5,20 +5,39 @@
 1784598680 c:\users\loq\desktop\backup\5\new folder\cat ghost\cat.h
 	"Entity.h"
 
-1785157669 c:\users\loq\desktop\backup\5\new folder\cat ghost\entity.h
+1784626459 D
+
+1784602121 c:\users\loq\desktop\backup\5\new folder\cat ghost\entity.h
 	<SDL.h>
 	<SDL_image.h>
 	<vector>
 	<bits/stdc++.h>
+	<SDL.h>
+	<SDL_image.h>
+	<vector>
 
-1785148704 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\entity.cpp
+1784694540 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\entity.cpp
+	"Entity.h"
 	"Entity.h"
 
-1785157669 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\ghost.cpp
+1784598652 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\ghost.cpp
 	"Ghost.h"
+	"Ghost.h"
+	"Utilities.h"
 
-1785157669 c:\users\loq\desktop\backup\5\new folder\cat ghost\ghost.h
+1784598680 c:\users\loq\desktop\backup\5\new folder\cat ghost\ghost.h
+
+1784602121 22d4cdab29c11d4f35e6d78777870db5d431f
 	"Entity.h"
+	<SDL.h>
+	"Game.h"
+	"CommonFunc.h"
+	"Entity.h"
+	<SDL.h>
+	"Game.h"
+	"CommonFunc.h"
+	"Entity.h"
+	"mainObject.h"
 
 1784599879 c:\users\loq\desktop\backup\5\new folder\cat ghost\utilities.h
 	<SDL.h>
@@ -27,13 +46,9 @@
 1784598652 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\utilities.cpp
 	"Utilities.h"
 
-1785148706 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\main.cpp
-	<SDL.h>
-	"Game.h"
-	"CommonFunc.h"
-	"Entity.h"
+1784626459 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\main.cpp
 
-1785231151 c:\users\loq\desktop\backup\5\new folder\cat ghost\game.h
+1784693017 c:\users\loq\desktop\backup\5\new folder\cat ghost\game.h
 	<SDL.h>
 	<SDL_image.h>
 	<SDL_ttf.h>
@@ -42,6 +57,13 @@
 	"Entity.h"
 	"mainObject.h"
 	"Ghost.h"
+	<SDL.h>
+	<SDL_image.h>
+	<iostream>
+	"Entity.h"
+	"mainObject.h"
+
+1785231151 
 
 1784599884 c:\users\loq\desktop\backup\5\new folder\cat ghost\constants.h
 	<bits/stdc++.h>
@@ -49,7 +71,9 @@
 
 1784599884 ated upstream
 
-1785157669 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\game.cpp
+1784694552 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\game.cpp
+	"Game.h"
+	"CommonFunc.h"
 	"Game.h"
 	"CommonFunc.h"
 
@@ -57,14 +81,18 @@
 	"Game.h"
 	"CommonFunc.h"
 
-1785148706 c:\users\loq\desktop\backup\5\new folder\cat ghost\mainobject.h
+1784602121 c:\users\loq\desktop\backup\5\new folder\cat ghost\mainobject.h
+	"Entity.h"
 	"Entity.h"
 
-1785148704 c:\users\loq\desktop\backup\5\new folder\cat ghost\commonfunc.h
+1784602121 c:\users\loq\desktop\backup\5\new folder\cat ghost\commonfunc.h
+	<bits/stdc++.h>
+	<SDL.h>
 	<bits/stdc++.h>
 	<SDL.h>
 
-1785148706 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\mainobject.cpp
+1784602121 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\mainobject.cpp
+	"mainObject.h"
 	"mainObject.h"
 
 1785743511 source:c:\users\asus\downloads\cat-ghost--main\cat-ghost--main\entity.cpp
@@ -104,11 +132,83 @@
 	"Ghost.h"
 
 1785743511 source:c:\users\asus\downloads\cat-ghost--main\cat-ghost--main\main.cpp
+
+1784694540 source:c:\users\admin\onedrive\máy tính\cat ghost\entity.cpp
+	"Entity.h"
+
+1784602121 c:\users\admin\onedrive\máy tính\cat ghost\entity.h
+	<SDL.h>
+	<SDL_image.h>
+	<vector>
+
+1784696165 source:c:\users\admin\onedrive\máy tính\cat ghost\game.cpp
+	"Game.h"
+	"CommonFunc.h"
+
+1784943589 c:\users\admin\onedrive\máy tính\cat ghost\game.h
+	<SDL.h>
+	<SDL_image.h>
+	<iostream>
+	"Entity.h"
+	"mainObject.h"
+
+1784602121 c:\users\admin\onedrive\máy tính\cat ghost\mainobject.h
+	"Entity.h"
+
+1784602121 c:\users\admin\onedrive\máy tính\cat ghost\commonfunc.h
+	<bits/stdc++.h>
+	<SDL.h>
+
+1784626459 source:c:\users\admin\onedrive\máy tính\cat ghost\main.cpp
+
+1785743511 source:c:\users\asus\downloads\cat-ghost--main\cat-ghost--main\mainobject.cpp
+
+1784602121 source:c:\users\admin\onedrive\máy tính\cat ghost\mainobject.cpp
+
+1785743511 source:c:\users\asus\downloads\cat-ghost--main\entity.cpp
+	"Entity.h"
+
+1786541663 c:\users\asus\downloads\cat-ghost--main\entity.h
+	<SDL.h>
+	<SDL_image.h>
+	<vector>
+
+1785743511 source:c:\users\asus\downloads\cat-ghost--main\main.cpp
 	<SDL.h>
 	"Game.h"
 	"CommonFunc.h"
 	"Entity.h"
 
-1785743511 source:c:\users\asus\downloads\cat-ghost--main\cat-ghost--main\mainobject.cpp
+1786542022 c:\users\asus\downloads\cat-ghost--main\game.h
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<SDL_mixer.h>
+	<iostream>
+	"Entity.h"
 	"mainObject.h"
+	"Ghost.h"
+
+1785743511 c:\users\asus\downloads\cat-ghost--main\mainobject.h
+	"Entity.h"
+
+1786542353 c:\users\asus\downloads\cat-ghost--main\ghost.h
+	"Entity.h"
+
+1785743511 c:\users\asus\downloads\cat-ghost--main\commonfunc.h
+	<bits/stdc++.h>
+	<SDL.h>
+
+1785743511 source:c:\users\asus\downloads\cat-ghost--main\mainobject.cpp
+	"mainObject.h"
+
+1786542341 source:c:\users\asus\downloads\cat-ghost--main\game.cpp
+	"Game.h"
+	"CommonFunc.h"
+
+1786542683 source:c:\users\asus\downloads\cat-ghost--main\ghost.cpp
+	"Ghost.h"
+	<cassert>
+	<random>
+	<chrono>
 

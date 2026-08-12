@@ -15,7 +15,7 @@ public:
     void update();
     void GhostDie();
     void GhostAttack();
-    void GhostMoving(double targetX, double targetY);;
+    void GhostMoving(double targetX, double targetY);
     bool isDead();
     void setDead();
     bool isAttacking();

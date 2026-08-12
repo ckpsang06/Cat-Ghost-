@@ -9,12 +9,14 @@
 #include "mainObject.h"
 #include "Ghost.h"
 
+
 enum GameStateName {
     GameOpenning,
     GamePlaying,
     GameEnding,
     GameWinning,
     GameLosing,
+
     TotalGameState
 };
 
@@ -23,6 +25,7 @@ enum GameTextureName {
     Menu1_2Texture,
     BackGroundTexture,
     CatTexture,
+
     GhostTexture,
     HeartTexture,
     Menu2Texture,
@@ -30,12 +33,16 @@ enum GameTextureName {
     HomeTexture,
     AgainTexture,
     CatHurtTexture,
+    CatAttackTexture,
+
     TotalGameTexutre
 };
 
 enum CatStateName {
     CatIdle,
     CatHurt,
+    CatAttack,
+
     TotalCatState
 };
 
@@ -46,6 +53,7 @@ private:
     SDL_Renderer *renderer;
 
     SDL_Texture* GameTexture[TotalGameTexutre] = {NULL};
+
     TTF_Font* font = NULL;
     Cat cat[TotalCatState];
     Entity heart;
@@ -61,6 +69,10 @@ private:
     int spawnGhostTime = 0;
     int spawnGhostDelay = 1500; //Tốc độ sinh ma
     int SCORE = 0;
+
+    bool isCatAttacking = false;
+    Uint32 attackStartTime = 0;
+
 public:
     Game();
     void initSDL(const char *p_title, int p_w, int p_h);
@@ -77,6 +89,7 @@ public:
     void gameRender();
     void cleanUp();
     void gameLoop();
+
 
     bool isHoveringPlay = false;
     void spawnGhost();

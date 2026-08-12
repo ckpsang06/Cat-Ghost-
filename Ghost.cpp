@@ -1,5 +1,7 @@
 #include "Ghost.h"
 #include <cassert>
+#include <random>
+#include <chrono>
 
 using namespace std;
 
