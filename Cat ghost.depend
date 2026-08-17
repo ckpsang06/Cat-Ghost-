@@ -5,19 +5,21 @@
 1784598680 c:\users\loq\desktop\backup\5\new folder\cat ghost\cat.h
 	"Entity.h"
 
-1785157669 c:\users\loq\desktop\backup\5\new folder\cat ghost\entity.h
+1786971541 c:\users\loq\desktop\backup\5\new folder\cat ghost\entity.h
 	<SDL.h>
 	<SDL_image.h>
 	<vector>
-	<bits/stdc++.h>
 
-1785148704 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\entity.cpp
+1786560952 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\entity.cpp
 	"Entity.h"
 
-1785157669 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\ghost.cpp
+1786560952 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\ghost.cpp
 	"Ghost.h"
+	<cassert>
+	<random>
+	<chrono>
 
-1785157669 c:\users\loq\desktop\backup\5\new folder\cat ghost\ghost.h
+1786560952 c:\users\loq\desktop\backup\5\new folder\cat ghost\ghost.h
 	"Entity.h"
 
 1784599879 c:\users\loq\desktop\backup\5\new folder\cat ghost\utilities.h
@@ -27,13 +29,13 @@
 1784598652 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\utilities.cpp
 	"Utilities.h"
 
-1785148706 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\main.cpp
+1786560952 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\main.cpp
 	<SDL.h>
 	"Game.h"
 	"CommonFunc.h"
 	"Entity.h"
 
-1785231151 c:\users\loq\desktop\backup\5\new folder\cat ghost\game.h
+1786983139 c:\users\loq\desktop\backup\5\new folder\cat ghost\game.h
 	<SDL.h>
 	<SDL_image.h>
 	<SDL_ttf.h>
@@ -49,7 +51,8 @@
 
 1784599884 ated upstream
 
-1785157669 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\game.cpp
+1786983183 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\game.cpp
+	<string>
 	"Game.h"
 	"CommonFunc.h"
 
@@ -57,13 +60,61 @@
 	"Game.h"
 	"CommonFunc.h"
 
-1785148706 c:\users\loq\desktop\backup\5\new folder\cat ghost\mainobject.h
+1786560952 c:\users\loq\desktop\backup\5\new folder\cat ghost\mainobject.h
 	"Entity.h"
 
-1785148704 c:\users\loq\desktop\backup\5\new folder\cat ghost\commonfunc.h
+1786982515 c:\users\loq\desktop\backup\5\new folder\cat ghost\commonfunc.h
 	<bits/stdc++.h>
 	<SDL.h>
 
-1785148706 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\mainobject.cpp
+1786560952 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\mainobject.cpp
+	"mainObject.h"
+
+1786560952 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\cat ghost\entity.cpp
+	"Entity.h"
+
+1786971541 c:\users\loq\desktop\backup\5\new folder\cat ghost\cat ghost\entity.h
+	<SDL.h>
+	<SDL_image.h>
+	<vector>
+
+1786983959 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\cat ghost\game.cpp
+	<string>
+	"Game.h"
+	"CommonFunc.h"
+
+1786983139 c:\users\loq\desktop\backup\5\new folder\cat ghost\cat ghost\game.h
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<SDL_mixer.h>
+	<iostream>
+	"Entity.h"
+	"mainObject.h"
+	"Ghost.h"
+
+1786560952 c:\users\loq\desktop\backup\5\new folder\cat ghost\cat ghost\mainobject.h
+	"Entity.h"
+
+1786560952 c:\users\loq\desktop\backup\5\new folder\cat ghost\cat ghost\ghost.h
+	"Entity.h"
+
+1786982515 c:\users\loq\desktop\backup\5\new folder\cat ghost\cat ghost\commonfunc.h
+	<bits/stdc++.h>
+	<SDL.h>
+
+1786560952 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\cat ghost\ghost.cpp
+	"Ghost.h"
+	<cassert>
+	<random>
+	<chrono>
+
+1786560952 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\cat ghost\main.cpp
+	<SDL.h>
+	"Game.h"
+	"CommonFunc.h"
+	"Entity.h"
+
+1786560952 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\cat ghost\mainobject.cpp
 	"mainObject.h"
 

@@ -9,10 +9,17 @@
 #include "mainObject.h"
 #include "Ghost.h"
 
+
 enum GameStateName {
     GameOpenning,
     GamePlaying,
     GameEnding,
+    GameWinning,
+    GameLosing,
+    GameIntro,
+    GameDie,
+    GameVictory,
+
     TotalGameState
 };
 
@@ -21,13 +28,30 @@ enum GameTextureName {
     Menu1_2Texture,
     BackGroundTexture,
     CatTexture,
+
     GhostTexture,
     HeartTexture,
+    Menu2Texture,
+    Menu3Texture,
+    HomeTexture,
+    AgainTexture,
+    CatHurtTexture,
+    CatAttackTexture,
+    CatRunningTexture,
+    CatDieTexture,
+    CatVictoryTexture,
+
     TotalGameTexutre
 };
 
 enum CatStateName {
     CatIdle,
+    CatHurt,
+    CatAttack,
+    CatRunning,
+    CatDie,
+    CatVictory,
+
     TotalCatState
 };
 
@@ -38,9 +62,12 @@ private:
     SDL_Renderer *renderer;
 
     SDL_Texture* GameTexture[TotalGameTexutre] = {NULL};
+
     TTF_Font* font = NULL;
     Cat cat[TotalCatState];
     Entity heart;
+    Entity home;
+    Entity again;
 
     Mix_Music* PlayingMusic = NULL;
     Mix_Chunk* ghostDieSound = NULL;
@@ -49,10 +76,23 @@ private:
     //Quản lý ma
     std::vector<Ghost> vecGhost;
     int spawnGhostTime = 0;
-    int spawnGhostDelay = 1500; //Tốc độ sinh ma
+    int spawnGhostDelay;// Thời gian sinh ma
+    int spawnGhostDelayAfterCatRunning = 500; // các lần sinh ma sau
+    int spawnGhostDelayBeforeCatRunning = 2000; // lần sinh ma đầu tiên
     int SCORE = 0;
+
+    bool isCatAttacking = false;
+    bool isCatRunning = false;
+    Uint32 attackStartTime = 0;
+    Uint32 gameStartTime;
+    Uint32 CatDieStartTime;
+    Uint32 CatVictoryStartTime;
+    const Uint32 GAME_TIME = 10000; // thời gian để chiến thắng
+    void resetGame();//Reset các     trạng thái
+
 public:
     Game();
+    void renderText(const std::string &text, int x, int y, SDL_Color color);
     void initSDL(const char *p_title, int p_w, int p_h);
     void loadMedia();
     void initEntity();
@@ -68,6 +108,9 @@ public:
     void cleanUp();
     void gameLoop();
 
+
     bool isHoveringPlay = false;
     void spawnGhost();
+    bool isCatHurt = false;
+    Uint32 catHurtStartTime = 0;
 };

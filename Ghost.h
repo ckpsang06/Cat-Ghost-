@@ -9,13 +9,15 @@ class Ghost : public Entity {
 private:
     int ghostSpeed;
     bool _isDead;
+    bool _isAttacking;
 public:
     Ghost();
     void update();
     void GhostDie();
     void GhostAttack();
-    void GhostMoving(double targetX, double targetY);;
+    void GhostMoving(double targetX, double targetY);
     bool isDead();
     void setDead();
-
+    bool isAttacking();
+    void setAttacking();
 };

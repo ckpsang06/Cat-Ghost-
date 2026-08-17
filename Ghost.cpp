@@ -1,10 +1,14 @@
 #include "Ghost.h"
+#include <cassert>
+#include <random>
+#include <chrono>
 
 using namespace std;
 
 Ghost::Ghost() {
-    ghostSpeed = 1;
+    ghostSpeed = 3;
     _isDead = 0;
+    _isAttacking = 0;
 }
 
 
@@ -12,6 +16,9 @@ void Ghost::update() {
     if (SDL_GetTicks() - frameStart >= frameDelay) {
         nextFrame();
         frameStart = SDL_GetTicks();
+        if (_isAttacking && currentFrame == 0) {
+            _isDead = true;
+        }
     }
 }
 
@@ -22,6 +29,9 @@ void Ghost::setDead() {
 bool Ghost::isDead() {
     return _isDead;
 }
+
+bool Ghost::isAttacking() { return _isAttacking; }
+void Ghost::setAttacking() { _isAttacking = true; }
 
 mt19937 rd(chrono::steady_clock::now().time_since_epoch().count());
 long long RandNum(long long l, long long r) {
