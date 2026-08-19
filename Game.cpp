@@ -403,6 +403,7 @@
 
         if (cat[CatIdle].getHealth() <= 0) {
             Mix_HaltMusic();
+            Mix_HaltChannel(-1);
             GameState = GameDie;
             CatDieStartTime = SDL_GetTicks();
             cat[CatDie].setCurrentFrame(0);
