@@ -44,6 +44,10 @@ enum GameTextureName {
     CatMagicTexture,
     SpellTitleTexture,
     TornadoTexture,
+    CatLightningTexture,
+    LightningStrikeTexture,
+    Spell2TitleTexture,
+    LightningTexture,
 
     TotalGameTexutre
 };
@@ -74,12 +78,16 @@ private:
     Entity home;
     Entity again;
     Entity spellTitle;
+    Entity spell2Title;
     Entity tornadoIcon;
+    Entity lightningIcon;
 
     Mix_Music* PlayingMusic = NULL;
     Mix_Chunk* ghostDieSound = NULL;
     Mix_Chunk* windSound = NULL;
     Mix_Chunk* spellVoiceSound = NULL;
+    Mix_Chunk* spell2VoiceSound = NULL;
+    Mix_Chunk* thunderSound = NULL;
 
     int GameState;
     //Quản lý ma
@@ -101,9 +109,24 @@ private:
     Uint32 altPressStartTime = 0;
     Uint32 magicCooldownStartTime = 0;
     const Uint32 GAME_TIME = 500000; // thời gian để chiến thắng
-    const Uint32 MAGIC_COOLDOWN = 2000;
-    const Uint32 MAGIC_CHARGE_TIME = 1500;
+    const Uint32 MAGIC_COOLDOWN = 5000;
+    const Uint32 MAGIC_CHARGE_TIME = 1000;
     void resetGame();//Reset các     trạng thái
+    //các biến quản lý chiêu sấm sét
+    Cat catLightning;
+    Cat lightningStrike;
+    std::vector<SDL_Rect> lightningTargets;
+    bool isUltimateActive;
+    bool isSpacePressed = false;
+    bool isMagic2Ready = true;
+    Uint32 ultimateStartTime;
+    Uint32 lastUltimateTime;
+    Uint32 SpacePressStartTime = 0;
+    Uint32 magic2CooldownStartTime = 0;
+
+
+    bool isChargingUltimate; // kiểm tra giữ phím space
+    Uint32 chargeStartTime;  // Thời điểm bắt đầu giữ phím
 
 public:
     Game();
