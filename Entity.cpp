@@ -27,6 +27,12 @@ void Entity::setY(double p_y) { y = p_y; }
 void Entity::setFrameStart(int p_fs) { frameStart = p_fs; }
 void Entity::setFrameDelay(int p_fd) { frameDelay = p_fd; }
 void Entity::setFlip(SDL_RendererFlip p_flip) { flip = p_flip; }
+void Entity::update() {
+    if (SDL_GetTicks() - frameStart >= frameDelay) {
+        nextFrame();
+        frameStart = SDL_GetTicks();
+    }
+}
 
 double Entity::getX() { return x; }
 double Entity::getY() { return y; }

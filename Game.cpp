@@ -58,7 +58,13 @@
         GameTexture[CatRunningTexture] = loadTexture("res/images/running.png");
         GameTexture[CatDieTexture] = loadTexture("res/images/die.png");
         GameTexture[CatVictoryTexture] = loadTexture("res/images/victory.png");
-
+        GameTexture[CatMagicTexture] = loadTexture("res/images/sunken.png");
+        GameTexture[TornadoTexture] = loadTexture("res/images/wingar_displayed.png");
+        GameTexture[SpellTitleTexture] = loadTexture("res/images/Wingardium Leviosa Tittle.png");
+        GameTexture[CatLightningTexture] = loadTexture("res/images/lightning.png");
+        GameTexture[LightningStrikeTexture] = loadTexture("res/images/lightning_attack.png");
+        GameTexture[LightningTexture] = loadTexture("res/images/lightning_displayed.png");
+        GameTexture[Spell2TitleTexture] = loadTexture("res/images/Expecto Patronum Tittle.png");
         //fonts
         font = TTF_OpenFont("res/fonts/arial.ttf", 50);
         TTF_SetFontStyle(font, TTF_STYLE_NORMAL);
@@ -69,6 +75,10 @@
         //musics
         PlayingMusic = Mix_LoadMUS("res/sounds/backgroundsound.mp3");
         ghostDieSound = Mix_LoadWAV("res/sounds/die.ogg");
+        windSound = Mix_LoadWAV("res/sounds/sound_wind.ogg");
+        spellVoiceSound = Mix_LoadWAV("res/sounds/wingdardium_leviosa.mp3");
+        spell2VoiceSound = Mix_LoadWAV("res/sounds/expecto_patronum.mp3");
+        thunderSound = Mix_LoadWAV("res/sounds/thunder.ogg");
     }
 
     void Game::initEntity() {
@@ -97,6 +107,16 @@
         cat[CatVictory].setX(SCREEN_WIDTH / 2 - 50);
         cat[CatVictory].setY(SCREEN_HEIGHT / 2 - 100);
 
+        cat[CatMagic].init(GameTexture[CatMagicTexture], 200, 200, 8, 1500 / 8);
+        cat[CatMagic].setX(cat[CatIdle].getX() - 50);
+        cat[CatMagic].setY(cat[CatIdle].getY() - 80);
+
+        spellTitle.init(GameTexture[SpellTitleTexture], 300, 50, 1, 0);
+        spellTitle.setX(-300);
+        spellTitle.setY(80);
+
+        tornadoIcon.init(GameTexture[TornadoTexture], 50, 50, 9, 100);
+
 
         heart.init(GameTexture[HeartTexture], 50, 50, 2, 0);
 
@@ -107,6 +127,20 @@
         again.init(GameTexture[AgainTexture], 140, 140, 2, 0);
         again.setX(930);
         again.setY(518);
+
+        catLightning.init(GameTexture[CatLightningTexture], 200, 200, 8, 60);
+        catLightning.setX(cat[CatIdle].getX() - 50);
+        catLightning.setY(cat[CatIdle].getY() - 80);
+
+        lightningStrike.init(GameTexture[LightningStrikeTexture], 400, 400, 3, 100);
+        lightningStrike.setX(SCREEN_WIDTH / 2 - 200);
+        lightningStrike.setY(SCREEN_HEIGHT / 2 - 250);
+
+        spell2Title.init(GameTexture[Spell2TitleTexture], 300, 50, 1, 0);
+        spell2Title.setX(-300);
+        spell2Title.setY(80);
+
+        lightningIcon.init(GameTexture[LightningTexture], 80, 80, 6, 100);
     }
     void Game::resetGame() {
         //Reset thời gian và thời gian chờ sinh quái
@@ -130,12 +164,22 @@
         cat[CatAttack].setCurrentFrame(0);
         cat[CatHurt].setCurrentFrame(0);
 
+        isAltPressed = false;
+        isMagicReady = true;
+        cat[CatMagic].setCurrentFrame(0);
+
         //Reset các cờ trạng thái và điểm số
         isCatHurt = false;
+        isUltimateActive = false;
+        isChargingUltimate = false;
+        // Trừ đi 10s để khi mới vào game là có thể bấm Space dùng chiêu được ngay
+        lastUltimateTime = SDL_GetTicks() - 10000;
+        catLightning.setCurrentFrame(0);
+        lightningStrike.setCurrentFrame(0);
         isCatAttacking = false;
         SCORE = 0;
 
-        // 6. Xóa sạch quái vật từ ván chơi trước
+        // Xóa sạch quái vật từ ván chơi trước
         vecGhost.clear();
     }
 
@@ -167,7 +211,7 @@
                 isRunning = false;
             }
 
-            // --- MÀN HÌNH MENU ---
+            // MÀN HÌNH MENU
             if (GameState == GameOpenning) {
                 SDL_GetMouseState(&mouseX, &mouseY);
                 SDL_Rect playButton = { 600, 80, 270, 356 };
@@ -187,7 +231,7 @@
 
             }
 
-            // --- MÀN HÌNH CHƠI ---
+            // MÀN HÌNH CHƠI
             else if (GameState == GamePlaying) {
                 if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN) {
                     GameState = GameWinning;
@@ -220,9 +264,52 @@
                         }
                     }
                 }
+                // Kích hoạt sấm sét bằng phím space
+                if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_SPACE) {
+                    // Điều kiện: Không bị thương, không đang dùng chiêu, và đã hồi chiêu xong (10 giây)
+                    if (!isCatHurt && !isUltimateActive && isMagic2Ready && ! isSpacePressed) {
+                        isSpacePressed = true;
+                        SpacePressStartTime = SDL_GetTicks();
+                        //Set lại vị trí spell title sau mỗi lần gọi
+                        spell2Title.setX(-300);
+                        cat[CatAttack].setCurrentFrame(0);
+                        if (spell2VoiceSound != NULL) {
+                            Mix_PlayChannel(-1, spell2VoiceSound, 0);
+                        }
+                    }
+                }
+                //Xử lý giữ nút SPACE để gồng ma thuật
+                if (event.type == SDL_KEYUP) {
+                    if (event.key.keysym.sym == SDLK_SPACE) {
+                        isSpacePressed = false  ;
+                    }
+                }
+
+                // Xử lý giữ nút ALT để gồng ma thuật
+                if (event.type == SDL_KEYDOWN) {
+                    if (event.key.keysym.sym == SDLK_LALT || event.key.keysym.sym == SDLK_RALT) {
+                        if (!isCatHurt && !isCatAttacking && isMagicReady && !isAltPressed) {
+                            isAltPressed = true;
+                            altPressStartTime = SDL_GetTicks();
+
+                            // Set lại vị trí spell title sau mỗi lần gọi
+                            spellTitle.setX(-300);
+                            cat[CatMagic].setCurrentFrame(0); // Bắt đầu chạy animation gồng
+                            if (spellVoiceSound != NULL) {
+                                Mix_PlayChannel(-1, spellVoiceSound, 0);
+                            }
+                        }
+                    }
+                }
+                // Hủy gồng nếu nhả nút ALT ra sớm
+                if (event.type == SDL_KEYUP) {
+                    if (event.key.keysym.sym == SDLK_LALT || event.key.keysym.sym == SDLK_RALT) {
+                        isAltPressed = false;
+                    }
+                }
             }
 
-            // --- MÀN HÌNH KẾT THÚC (THẮNG / THUA) ---
+            // MÀN HÌNH KẾT THÚC (THẮNG / THUA)
             else if (GameState == GameWinning || GameState == GameLosing) {
                 if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
                     int clickX = event.button.x;
@@ -360,19 +447,108 @@
                                       [](Ghost& g) { return g.isDead(); }),
                        vecGhost.end());
 
-        // Cập nhật Animation Mèo
+        // Cập nhật Animation Mèo và Logic Ma thuật
         if (isCatHurt) {
             cat[CatHurt].update();
-            if (SDL_GetTicks() - catHurtStartTime > 200) {
-                isCatHurt = false;
+            if (SDL_GetTicks() - catHurtStartTime > 200) isCatHurt = false;
+        }
+        else if (isUltimateActive) {
+            catLightning.update();
+            lightningStrike.update();
+            // Animation chiêu cuối kéo dài khoảng 600ms
+            if (SDL_GetTicks() - ultimateStartTime > 600) {
+                isUltimateActive = false;
+                isMagic2Ready = false;
+                magic2CooldownStartTime = SDL_GetTicks();
+                lightningTargets.clear();
             }
-        } else if (isCatAttacking) {
+        }
+        else if (isSpacePressed && isMagic2Ready) {
+            // Tăng vị tri X của spell
+            if (spell2Title.getX() < 20) {
+                spell2Title.setX(spell2Title.getX() + 10);
+            }
+
             cat[CatAttack].update();
-            if (SDL_GetTicks() - attackStartTime > 240) {
-                isCatAttacking = false;
+            if (SDL_GetTicks() - SpacePressStartTime >= MAGIC_CHARGE_TIME) {
+                isSpacePressed = false;
+                isUltimateActive = true;
+                ultimateStartTime = SDL_GetTicks();
+                catLightning.setCurrentFrame(0);
+                lightningStrike.setCurrentFrame(0);
+                lightningTargets.clear();
+                for (auto &curGhost : vecGhost) {
+                    if (!curGhost.isDead()) {
+                        curGhost.setDead();
+                        SCORE++;
+                        SDL_Rect target;
+                        target.x = curGhost.getX() - 125;
+                        target.y = curGhost.getY() - 150;
+                        lightningTargets.push_back(target);
+                    }
+                }
+                if (thunderSound != NULL) {
+                    Mix_PlayChannel(-1, thunderSound, 0);
+                }
             }
-        } else if (cat[CatIdle].getHealth() > 0) {
+        }
+        else if (isAltPressed && isMagicReady) {
+            // Tăng vị trí X của Spell
+            if (spellTitle.getX() < 20) {
+                spellTitle.setX(spellTitle.getX() + 10);
+            }
+            cat[CatMagic].update();
+
+            if (SDL_GetTicks() - altPressStartTime >= MAGIC_CHARGE_TIME) {
+                if (windSound != NULL) Mix_PlayChannel(-1, windSound, 0);
+
+                for (auto &curGhost : vecGhost) {
+                    if (!curGhost.isDead()) {
+                        double dx = curGhost.getX() - cat[CatIdle].getX();
+                        double dy = curGhost.getY() - cat[CatIdle].getY();
+                        double dist = distance(curGhost.getX(), curGhost.getY(), cat[CatIdle].getX(), cat[CatIdle].getY());
+
+                        if (dist > 0) {
+                            // Đẩy lùi ra xa thêm 400 pixel
+                            curGhost.setX(curGhost.getX() + (dx / dist) * 400);
+                            curGhost.setY(curGhost.getY() + (dy / dist) * 400);
+                        }
+                    }
+                }
+                isMagicReady = false;
+                magicCooldownStartTime = SDL_GetTicks();
+                isAltPressed = false; // Ngắt trạng thái gồng
+            }
+        }
+        else if (isCatAttacking) {
+            cat[CatAttack].update();
+            if (SDL_GetTicks() - attackStartTime > 240) isCatAttacking = false;
+        }
+        else if (cat[CatIdle].getHealth() > 0) {
             cat[CatIdle].update();
+        }
+
+        // Cập nhật Cooldown & Lốc xoáy
+        if (!isMagicReady) {
+            // Đếm thời gian hồi chiêu
+            if (SDL_GetTicks() - magicCooldownStartTime >= MAGIC_COOLDOWN) {
+                isMagicReady = true;
+            }
+        }
+
+        if (!isMagic2Ready) {
+            // Đếm thời gian hồi chiêu
+            if (SDL_GetTicks() - magic2CooldownStartTime >= MAGIC_COOLDOWN) {
+                isMagic2Ready = true;
+            }
+        }
+
+        if (isMagic2Ready) {
+            lightningIcon.update();
+        }
+
+        if (isMagicReady) {
+            tornadoIcon.update();
         }
     }
 
@@ -429,9 +605,20 @@
         else if (GameState == GamePlaying) {
             render(GameTexture[BackGroundTexture]);
 
-            // Ưu tiên render Mèo bị thương > Mèo đánh > Mèo đứng yên
             if (isCatHurt) {
                 render(cat[CatHurt], cat[CatHurt].getCurrentFrame());
+            } else if (isUltimateActive) {
+                // Duyệt qua mảng vị trí và vẽ sét
+                for (SDL_Rect pos : lightningTargets) {
+                    lightningStrike.setX(pos.x);
+                    lightningStrike.setY(pos.y);
+                    render(catLightning, catLightning.getCurrentFrame());
+                    render(lightningStrike, lightningStrike.getCurrentFrame());
+                }
+            } else if (isAltPressed && isMagicReady) {
+                render(cat[CatMagic], cat[CatMagic].getCurrentFrame());
+            } else if (isSpacePressed && isMagic2Ready) {
+                render(cat[CatAttack], cat[CatAttack].getCurrentFrame());
             } else if (isCatAttacking) {
                 render(cat[CatAttack], cat[CatAttack].getCurrentFrame());
             } else {
@@ -451,15 +638,34 @@
                 hx += heart.getWidth() + 20;
             }
 
-            // Hiển thị điểm ở góc trên bên phải
+            //Render Dòng chữ Tên chiêu (Nếu đang giữ Alt)
+            if (isAltPressed && isMagicReady) {
+                render(spellTitle, spellTitle.getCurrentFrame());
+            }
+
+            //Render Dòng chữ Tên chiêu (Nếu đang giữ Space)
+            if (isSpacePressed && isMagic2Ready) {
+                render(spell2Title, spell2Title.getCurrentFrame());
+            }
+
             SDL_Color scoreColor = {218, 165, 32, 255};  // màu vàng
             std::string scoreText = std::to_string(SCORE);
             int textW = 0, textH = 0;
             TTF_SizeText(font, scoreText.c_str(), &textW, &textH);
-            renderText(scoreText, SCREEN_WIDTH - textW - 20, 15, scoreColor);
+            int scoreX = SCREEN_WIDTH - textW - 20;
+            renderText(scoreText, scoreX, 15, scoreColor);
 
-            SDL_RenderPresent(renderer);
-            return;
+            if (isMagicReady) {
+                tornadoIcon.setX(scoreX - 300);
+                tornadoIcon.setY(20);
+                render(tornadoIcon, tornadoIcon.getCurrentFrame());
+            }
+
+            if (isMagic2Ready) {
+                lightningIcon.setX(scoreX - 600);
+                lightningIcon.setY(5);
+                render(lightningIcon, lightningIcon.getCurrentFrame());
+            }
         }
 
         else if (GameState == GameWinning) {
