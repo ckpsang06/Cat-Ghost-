@@ -41,6 +41,10 @@ enum GameTextureName {
     CatDieTexture,
     CatVictoryTexture,
 
+    CatMagicTexture,
+    SpellTitleTexture,
+    TornadoTexture,
+
     TotalGameTexutre
 };
 
@@ -51,6 +55,7 @@ enum CatStateName {
     CatRunning,
     CatDie,
     CatVictory,
+    CatMagic,
 
     TotalCatState
 };
@@ -68,9 +73,13 @@ private:
     Entity heart;
     Entity home;
     Entity again;
+    Entity spellTitle;
+    Entity tornadoIcon;
 
     Mix_Music* PlayingMusic = NULL;
     Mix_Chunk* ghostDieSound = NULL;
+    Mix_Chunk* windSound = NULL;
+    Mix_Chunk* spellVoiceSound = NULL;
 
     int GameState;
     //Quản lý ma
@@ -83,11 +92,17 @@ private:
 
     bool isCatAttacking = false;
     bool isCatRunning = false;
+    bool isAltPressed = false;
+    bool isMagicReady = true;
     Uint32 attackStartTime = 0;
     Uint32 gameStartTime;
     Uint32 CatDieStartTime;
     Uint32 CatVictoryStartTime;
-    const Uint32 GAME_TIME = 10000; // thời gian để chiến thắng
+    Uint32 altPressStartTime = 0;
+    Uint32 magicCooldownStartTime = 0;
+    const Uint32 GAME_TIME = 500000; // thời gian để chiến thắng
+    const Uint32 MAGIC_COOLDOWN = 2000;
+    const Uint32 MAGIC_CHARGE_TIME = 1500;
     void resetGame();//Reset các     trạng thái
 
 public:
