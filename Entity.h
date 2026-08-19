@@ -1,8 +1,9 @@
 #pragma once
-
 #include <SDL.h>
 #include <SDL_image.h>
 #include <vector>
+
+
 
 class Entity {
 protected:
@@ -21,19 +22,19 @@ public:
     void setFrameStart(int p_fs);
     void setFrameDelay(int p_fd);
     void setFlip(SDL_RendererFlip p_flip);
-    
+
     double getX();
     double getY();
     int getWidth();
     int getHeight();
     SDL_Texture *getTexture();
     SDL_RendererFlip getFlip();
-    
+
     void nextFrame();
     int getCur();
     void setCurrentFrame(int cur);
     int getNumFrames();
-    
+
     SDL_Rect getFrame(int id);
     SDL_Rect getCurrentFrame();
 };

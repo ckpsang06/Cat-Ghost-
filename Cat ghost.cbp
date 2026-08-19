@@ -43,6 +43,8 @@
 		<Unit filename="Entity.h" />
 		<Unit filename="Game.cpp" />
 		<Unit filename="Game.h" />
+		<Unit filename="Ghost.cpp" />
+		<Unit filename="Ghost.h" />
 		<Unit filename="SDL2.dll" />
 		<Unit filename="SDL2_image.dll" />
 		<Unit filename="SDL2_mixer.dll" />

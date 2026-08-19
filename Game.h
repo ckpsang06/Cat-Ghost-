@@ -2,15 +2,25 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_ttf.h>
+#include <SDL_mixer.h>
 #include <iostream>
 #include <vector>
 #include "Entity.h"
 #include "mainObject.h"
+#include "Ghost.h"
+
 
 enum GameStateName {
     GameOpenning,
     GamePlaying,
     GameEnding,
+    GameWinning,
+    GameLosing,
+    GameIntro,
+    GameDie,
+    GameVictory,
+
     TotalGameState
 };
 
@@ -19,22 +29,31 @@ enum GameTextureName {
     Menu1_2Texture,
     BackGroundTexture,
     CatTexture,
+
+    GhostTexture,
     HeartTexture,
+    Menu2Texture,
+    Menu3Texture,
+    HomeTexture,
+    AgainTexture,
+    CatHurtTexture,
     CatAttackTexture,
-<<<<<<< Updated upstream
-=======
     CatRunningTexture,
     CatDieTexture,
     CatVictoryTexture,
     CatLightningTexture,
     LightningStrikeTexture,
->>>>>>> Stashed changes
     TotalGameTexutre
 };
 
 enum CatStateName {
     CatIdle,
+    CatHurt,
     CatAttack,
+    CatRunning,
+    CatDie,
+    CatVictory,
+
     TotalCatState
 };
 
@@ -45,10 +64,10 @@ private:
     SDL_Renderer *renderer;
 
     SDL_Texture* GameTexture[TotalGameTexutre] = {NULL};
+
+    TTF_Font* font = NULL;
     Cat cat[TotalCatState];
     Entity heart;
-<<<<<<< Updated upstream
-=======
     Entity home;
     Entity again;
 
@@ -64,14 +83,10 @@ private:
     int spawnGhostDelayAfterCatRunning = 1000; // các lần sinh ma sau
     int spawnGhostDelayBeforeCatRunning = 2000; // lần sinh ma đầu tiên
     int SCORE = 0;
->>>>>>> Stashed changes
 
     bool isCatAttacking = false;
+    bool isCatRunning = false;
     Uint32 attackStartTime = 0;
-<<<<<<< Updated upstream
-
-    int GameState;
-=======
     Uint32 gameStartTime;
     Uint32 CatDieStartTime;
     Uint32 CatVictoryStartTime;
@@ -89,9 +104,9 @@ private:
     bool isChargingUltimate; // kiểm tra giữ phím space
     Uint32 chargeStartTime;  // Thời điểm bắt đầu giữ phím
 
->>>>>>> Stashed changes
 public:
     Game();
+    void renderText(const std::string &text, int x, int y, SDL_Color color);
     void initSDL(const char *p_title, int p_w, int p_h);
     void loadMedia();
     void initEntity();
@@ -106,5 +121,10 @@ public:
     void gameRender();
     void cleanUp();
     void gameLoop();
+
+
     bool isHoveringPlay = false;
+    void spawnGhost();
+    bool isCatHurt = false;
+    Uint32 catHurtStartTime = 0;
 };
