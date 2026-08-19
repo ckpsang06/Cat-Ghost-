@@ -93,3 +93,52 @@
 1784602121 source:c:\users\admin\onedrive\máy tính\cat ghost\mainobject.cpp
 	"mainObject.h"
 
+1786506408 source:c:\users\admin\cat-ghost-\entity.cpp
+	"Entity.h"
+
+1786604111 c:\users\admin\cat-ghost-\entity.h
+	<SDL.h>
+	<SDL_image.h>
+	<vector>
+
+1787071879 source:c:\users\admin\cat-ghost-\game.cpp
+	<string>
+	"Game.h"
+	"CommonFunc.h"
+
+1787132460 c:\users\admin\cat-ghost-\game.h
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<SDL_mixer.h>
+	<iostream>
+	<vector>
+	"Entity.h"
+	"mainObject.h"
+	"Ghost.h"
+
+1784602121 c:\users\admin\cat-ghost-\mainobject.h
+	"Entity.h"
+
+1786604111 c:\users\admin\cat-ghost-\ghost.h
+	"Entity.h"
+
+1787054474 c:\users\admin\cat-ghost-\commonfunc.h
+	<bits/stdc++.h>
+	<SDL.h>
+
+1786611272 source:c:\users\admin\cat-ghost-\ghost.cpp
+	"Ghost.h"
+	<cassert>
+	<random>
+	<chrono>
+
+1786506410 source:c:\users\admin\cat-ghost-\main.cpp
+	<SDL.h>
+	"Game.h"
+	"CommonFunc.h"
+	"Entity.h"
+
+1784602121 source:c:\users\admin\cat-ghost-\mainobject.cpp
+	"mainObject.h"
+
