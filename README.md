@@ -1,6 +1,6 @@
 # Cat-Ghost Game
 
-![Gameplay Banner]()
+![Gameplay Banner](https://github.com/ckpsang06/Cat-Ghost-/blob/main/res/images/menu1_2.png)
 
 ## 1. Mô tả ngắn gọn bài toán và phạm vi hệ thống
 **Cat-Ghost** là một tựa game sinh tồn 2D góc nhìn ngang, trong đó người chơi điều khiển một chú mèo pháp sư chiến đấu chống lại những bóng ma liên tục xuất hiện. Mục tiêu của trò chơi là sinh tồn và tiêu diệt ma để tích lũy điểm số (`SCORE`) trong một khoảng thời gian giới hạn là 500 giây (500000 ms). 
