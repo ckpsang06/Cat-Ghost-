@@ -22,6 +22,7 @@ public:
     void setFrameStart(int p_fs);
     void setFrameDelay(int p_fd);
     void setFlip(SDL_RendererFlip p_flip);
+    void update();
 
     double getX();
     double getY();

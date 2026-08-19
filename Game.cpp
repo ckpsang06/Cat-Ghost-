@@ -58,7 +58,9 @@
         GameTexture[CatRunningTexture] = loadTexture("res/images/running.png");
         GameTexture[CatDieTexture] = loadTexture("res/images/die.png");
         GameTexture[CatVictoryTexture] = loadTexture("res/images/victory.png");
-
+        GameTexture[CatMagicTexture] = loadTexture("res/images/sunken.png");
+        GameTexture[TornadoTexture] = loadTexture("res/images/wingar_displayed.png");
+        GameTexture[SpellTitleTexture] = loadTexture("res/images/Wingardium Leviosa Tittle.png");
         //fonts
         font = TTF_OpenFont("res/fonts/arial.ttf", 50);
         TTF_SetFontStyle(font, TTF_STYLE_NORMAL);
@@ -69,6 +71,8 @@
         //musics
         PlayingMusic = Mix_LoadMUS("res/sounds/backgroundsound.mp3");
         ghostDieSound = Mix_LoadWAV("res/sounds/die.ogg");
+        windSound = Mix_LoadWAV("res/sounds/sound_wind.ogg");
+        spellVoiceSound = Mix_LoadWAV("res/sounds/wingdardium_leviosa.mp3");
     }
 
     void Game::initEntity() {
@@ -97,6 +101,15 @@
         cat[CatVictory].setX(SCREEN_WIDTH / 2 - 50);
         cat[CatVictory].setY(SCREEN_HEIGHT / 2 - 100);
 
+        cat[CatMagic].init(GameTexture[CatMagicTexture], 200, 200, 8, 1500 / 8);
+        cat[CatMagic].setX(cat[CatIdle].getX() - 50);
+        cat[CatMagic].setY(cat[CatIdle].getY() - 80);
+
+        spellTitle.init(GameTexture[SpellTitleTexture], 300, 50, 1, 0);
+        spellTitle.setX(20);
+        spellTitle.setY(80);
+
+        tornadoIcon.init(GameTexture[TornadoTexture], 50, 50, 9, 100);
 
         heart.init(GameTexture[HeartTexture], 50, 50, 2, 0);
 
@@ -129,6 +142,10 @@
         cat[CatIdle].setCurrentFrame(0);
         cat[CatAttack].setCurrentFrame(0);
         cat[CatHurt].setCurrentFrame(0);
+
+        isAltPressed = false;
+        isMagicReady = true;
+        cat[CatMagic].setCurrentFrame(0);
 
         //Reset các cờ trạng thái và điểm số
         isCatHurt = false;
@@ -167,7 +184,7 @@
                 isRunning = false;
             }
 
-            // --- MÀN HÌNH MENU ---
+            // MÀN HÌNH MENU
             if (GameState == GameOpenning) {
                 SDL_GetMouseState(&mouseX, &mouseY);
                 SDL_Rect playButton = { 600, 80, 270, 356 };
@@ -187,7 +204,7 @@
 
             }
 
-            // --- MÀN HÌNH CHƠI ---
+            // MÀN HÌNH CHƠI
             else if (GameState == GamePlaying) {
                 if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN) {
                     GameState = GameWinning;
@@ -220,9 +237,28 @@
                         }
                     }
                 }
+                // Xử lý giữ nút ALT để gồng ma thuật
+                if (event.type == SDL_KEYDOWN) {
+                    if (event.key.keysym.sym == SDLK_LALT || event.key.keysym.sym == SDLK_RALT) {
+                        if (!isCatHurt && !isCatAttacking && isMagicReady && !isAltPressed) {
+                            isAltPressed = true;
+                            altPressStartTime = SDL_GetTicks();
+                            cat[CatMagic].setCurrentFrame(0); // Bắt đầu chạy animation gồng
+                            if (spellVoiceSound != NULL) {
+                                Mix_PlayChannel(-1, spellVoiceSound, 0);
+                            }
+                        }
+                    }
+                }
+                // Hủy gồng nếu nhả nút ALT ra sớm
+                if (event.type == SDL_KEYUP) {
+                    if (event.key.keysym.sym == SDLK_LALT || event.key.keysym.sym == SDLK_RALT) {
+                        isAltPressed = false;
+                    }
+                }
             }
 
-            // --- MÀN HÌNH KẾT THÚC (THẮNG / THUA) ---
+            // MÀN HÌNH KẾT THÚC (THẮNG / THUA)
             else if (GameState == GameWinning || GameState == GameLosing) {
                 if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
                     int clickX = event.button.x;
@@ -360,19 +396,54 @@
                                       [](Ghost& g) { return g.isDead(); }),
                        vecGhost.end());
 
-        // Cập nhật Animation Mèo
+        // Cập nhật Animation Mèo và Logic Ma thuật
         if (isCatHurt) {
             cat[CatHurt].update();
-            if (SDL_GetTicks() - catHurtStartTime > 200) {
-                isCatHurt = false;
+            if (SDL_GetTicks() - catHurtStartTime > 200) isCatHurt = false;
+        }
+        else if (isAltPressed && isMagicReady) {
+            cat[CatMagic].update();
+
+            if (SDL_GetTicks() - altPressStartTime >= MAGIC_CHARGE_TIME) {
+                if (windSound != NULL) Mix_PlayChannel(-1, windSound, 0);
+
+                for (auto &curGhost : vecGhost) {
+                    if (!curGhost.isDead()) {
+                        double dx = curGhost.getX() - cat[CatIdle].getX();
+                        double dy = curGhost.getY() - cat[CatIdle].getY();
+                        double dist = distance(curGhost.getX(), curGhost.getY(), cat[CatIdle].getX(), cat[CatIdle].getY());
+
+                        if (dist > 0) {
+                            // Đẩy lùi ra xa thêm 400 pixel
+                            curGhost.setX(curGhost.getX() + (dx / dist) * 400);
+                            curGhost.setY(curGhost.getY() + (dy / dist) * 400);
+                        }
+                    }
+                }
+
+                isMagicReady = false;
+                magicCooldownStartTime = SDL_GetTicks();
+                isAltPressed = false; // Ngắt trạng thái gồng
             }
-        } else if (isCatAttacking) {
+        }
+        else if (isCatAttacking) {
             cat[CatAttack].update();
-            if (SDL_GetTicks() - attackStartTime > 240) {
-                isCatAttacking = false;
-            }
-        } else if (cat[CatIdle].getHealth() > 0) {
+            if (SDL_GetTicks() - attackStartTime > 240) isCatAttacking = false;
+        }
+        else if (cat[CatIdle].getHealth() > 0) {
             cat[CatIdle].update();
+        }
+
+        // Cập nhật Cooldown & Lốc xoáy
+        if (!isMagicReady) {
+            // Đếm thời gian hồi chiêu
+            if (SDL_GetTicks() - magicCooldownStartTime >= MAGIC_COOLDOWN) {
+                isMagicReady = true;
+            }
+        }
+
+        if (isMagicReady) {
+            tornadoIcon.update();
         }
     }
 
@@ -429,9 +500,10 @@
         else if (GameState == GamePlaying) {
             render(GameTexture[BackGroundTexture]);
 
-            // Ưu tiên render Mèo bị thương > Mèo đánh > Mèo đứng yên
             if (isCatHurt) {
                 render(cat[CatHurt], cat[CatHurt].getCurrentFrame());
+            } else if (isAltPressed && isMagicReady) {
+                render(cat[CatMagic], cat[CatMagic].getCurrentFrame());
             } else if (isCatAttacking) {
                 render(cat[CatAttack], cat[CatAttack].getCurrentFrame());
             } else {
@@ -451,12 +523,23 @@
                 hx += heart.getWidth() + 20;
             }
 
-            // Hiển thị điểm ở góc trên bên phải
+            // 4. Render Dòng chữ Tên chiêu (Nếu đang giữ Alt)
+            if (isAltPressed && isMagicReady) {
+                render(spellTitle, spellTitle.getCurrentFrame());
+            }
+
             SDL_Color scoreColor = {218, 165, 32, 255};  // màu vàng
             std::string scoreText = std::to_string(SCORE);
             int textW = 0, textH = 0;
             TTF_SizeText(font, scoreText.c_str(), &textW, &textH);
-            renderText(scoreText, SCREEN_WIDTH - textW - 20, 15, scoreColor);
+            int scoreX = SCREEN_WIDTH - textW - 20;
+            renderText(scoreText, scoreX, 15, scoreColor);
+
+            if (isMagicReady) {
+                tornadoIcon.setX(scoreX - 120);
+                tornadoIcon.setY(5);
+                render(tornadoIcon, tornadoIcon.getCurrentFrame());
+            }
 
             SDL_RenderPresent(renderer);
             return;
