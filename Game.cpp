@@ -466,7 +466,7 @@
         else if (isSpacePressed && isMagic2Ready) {
             // Tăng vị tri X của spell
             if (spell2Title.getX() < 20) {
-                spell2Title.setX(spell2Title.getX() + 10);
+                spell2Title.setX(spell2Title.getX() + 20);
             }
 
             cat[CatAttack].update();
@@ -495,7 +495,7 @@
         else if (isAltPressed && isMagicReady) {
             // Tăng vị trí X của Spell
             if (spellTitle.getX() < 20) {
-                spellTitle.setX(spellTitle.getX() + 10);
+                spellTitle.setX(spellTitle.getX() + 20);
             }
             cat[CatMagic].update();
 

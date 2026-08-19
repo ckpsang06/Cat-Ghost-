@@ -118,10 +118,10 @@
 1786560952 source:c:\users\loq\desktop\backup\5\new folder\cat ghost\cat ghost\mainobject.cpp
 	"mainObject.h"
 
-1787133426 source:c:\users\loq\desktop\backup\5\cat ghost\cat ghost\entity.cpp
+1787079880 source:c:\users\loq\desktop\backup\5\cat ghost\cat ghost\entity.cpp
 	"Entity.h"
 
-1787133426 c:\users\loq\desktop\backup\5\cat ghost\cat ghost\entity.h
+1787079872 c:\users\loq\desktop\backup\5\cat ghost\cat ghost\entity.h
 	<SDL.h>
 	<SDL_image.h>
 	<vector>
@@ -131,7 +131,7 @@
 	"Game.h"
 	"CommonFunc.h"
 
-1787142428 c:\users\loq\desktop\backup\5\cat ghost\cat ghost\game.h
+1787080524 c:\users\loq\desktop\backup\5\cat ghost\cat ghost\game.h
 	<SDL.h>
 	<SDL_image.h>
 	<SDL_ttf.h>
@@ -141,29 +141,29 @@
 	"mainObject.h"
 	"Ghost.h"
 
-1787133426 c:\users\loq\desktop\backup\5\cat ghost\cat ghost\mainobject.h
+1787073684 c:\users\loq\desktop\backup\5\cat ghost\cat ghost\mainobject.h
 	"Entity.h"
 
-1787133426 c:\users\loq\desktop\backup\5\cat ghost\cat ghost\ghost.h
+1787073684 c:\users\loq\desktop\backup\5\cat ghost\cat ghost\ghost.h
 	"Entity.h"
 
-1787133426 c:\users\loq\desktop\backup\5\cat ghost\cat ghost\commonfunc.h
+1787073684 c:\users\loq\desktop\backup\5\cat ghost\cat ghost\commonfunc.h
 	<bits/stdc++.h>
 	<SDL.h>
 
-1787133426 source:c:\users\loq\desktop\backup\5\cat ghost\cat ghost\ghost.cpp
+1787073684 source:c:\users\loq\desktop\backup\5\cat ghost\cat ghost\ghost.cpp
 	"Ghost.h"
 	<cassert>
 	<random>
 	<chrono>
 
-1787133426 source:c:\users\loq\desktop\backup\5\cat ghost\cat ghost\main.cpp
+1787073684 source:c:\users\loq\desktop\backup\5\cat ghost\cat ghost\main.cpp
 	<SDL.h>
 	"Game.h"
 	"CommonFunc.h"
 	"Entity.h"
 
-1787133426 source:c:\users\loq\desktop\backup\5\cat ghost\cat ghost\mainobject.cpp
+1787073684 source:c:\users\loq\desktop\backup\5\cat ghost\cat ghost\mainobject.cpp
 	"mainObject.h"
 
 1787133426 source:c:\users\loq\downloads\catghost\cat-ghost--main\entity.cpp
@@ -174,7 +174,7 @@
 	<SDL_image.h>
 	<vector>
 
-1787142395 source:c:\users\loq\downloads\catghost\cat-ghost--main\game.cpp
+1787142570 source:c:\users\loq\downloads\catghost\cat-ghost--main\game.cpp
 	<string>
 	"Game.h"
 	"CommonFunc.h"
