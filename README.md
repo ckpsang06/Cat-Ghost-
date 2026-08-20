@@ -7,10 +7,11 @@
 
 Hệ thống bao gồm các màn hình chính: Menu khởi đầu, Màn hình giới thiệu, Màn hình chơi chính, và Màn hình kết thúc (Thắng/Thua). Trò chơi kết hợp cơ chế chiến đấu cơ bản và hệ thống chiêu thức ma thuật có thời gian chờ (cooldown).
 
-## 2. Video Demo & Hình ảnh
+## 2. Video Demo & Báo cáo
 
 **Video Demo Gameplay:**
-[![Video Demo Game]()
+
+https://drive.google.com/file/d/16yhC8b9zXx8WD_ZHuGO2zHU2f26KydwF/view?usp=sharing
 
 **Báo cáo:**
 
