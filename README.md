@@ -7,12 +7,17 @@
 
 **Hệ thống bao gồm các màn hình chính:** 
 *   **Menu khởi đầu:**
-
-![Menu](https://github.com/ckpsang06/Cat-Ghost-/blob/group-3/Screenshot%202026-08-20%20215051.png)
+  
+![Gameplay Banner](https://github.com/ckpsang06/Cat-Ghost-/blob/main/res/images/menu1_2.png)
 
 *   **Màn hình chơi chính:**
 
+![Menu](https://github.com/ckpsang06/Cat-Ghost-/blob/group-3/Screenshot%202026-08-20%20215051.png)
+
 *   **Màn hình kết thúc (Thắng/Thua):**
+
+![Menu](https://github.com/ckpsang06/Cat-Ghost-/blob/group-3/Screenshot%202026-08-20%20215122.png)
+![Menu](https://github.com/ckpsang06/Cat-Ghost-/blob/group-3/Screenshot%202026-08-20%20215331.png)
 
 Trò chơi kết hợp cơ chế chiến đấu cơ bản và hệ thống chiêu thức ma thuật có thời gian chờ (cooldown).
 
