@@ -5,7 +5,11 @@
 ## 1. Mô tả ngắn gọn bài toán và phạm vi hệ thống
 **Cat-Ghost** là một tựa game sinh tồn 2D góc nhìn ngang, trong đó người chơi điều khiển một chú mèo pháp sư chiến đấu chống lại những bóng ma liên tục xuất hiện. Mục tiêu của trò chơi là sinh tồn và tiêu diệt ma để tích lũy điểm số (`SCORE`) trong một khoảng thời gian giới hạn là 500 giây (500000 ms). 
 
-Hệ thống bao gồm các màn hình chính: Menu khởi đầu, Màn hình giới thiệu, Màn hình chơi chính, và Màn hình kết thúc (Thắng/Thua). Trò chơi kết hợp cơ chế chiến đấu cơ bản và hệ thống chiêu thức ma thuật có thời gian chờ (cooldown).
+Hệ thống bao gồm các màn hình chính: 
+**Menu khởi đầu**:
+![Menu]([https://github.com/ckpsang06/Cat-Ghost-/blob/group-3/Screenshot%202026-08-20%20215051.png])
+
+Màn hình giới thiệu, Màn hình chơi chính, và Màn hình kết thúc (Thắng/Thua). Trò chơi kết hợp cơ chế chiến đấu cơ bản và hệ thống chiêu thức ma thuật có thời gian chờ (cooldown).
 
 ## 2. Video Demo & Báo cáo
 
