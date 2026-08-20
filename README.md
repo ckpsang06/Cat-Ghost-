@@ -69,6 +69,14 @@ g++ -I src/include -L src/lib -o main main.cpp Game.cpp Entity.cpp Ghost.cpp mai
 *   **Cơ chế Chiến đấu (Combat):**
     *   Tấn công cơ bản: Click chuột trái để tiêu diệt quái vật tại vị trí con trỏ.
     *   Chiêu thức Đẩy lùi (Tornado): Nhấn giữ phím `Alt` trong 1 giây (1000ms) để gồng và đẩy lùi toàn bộ quái vật ra xa. Có biểu tượng lốc xoáy hiển thị thời gian hồi chiêu (5 giây).
+
+      ![Menu](https://github.com/ckpsang06/Cat-Ghost-/blob/group-3/Screenshot%202026-08-20%20220914.png)
+      ![Menu](https://github.com/ckpsang06/Cat-Ghost-/blob/group-3/Screenshot%202026-08-20%20220843.png)
+      
     *   Chiêu thức Sấm sét (Ultimate): Nhấn giữ phím `Space` để gọi sấm sét tiêu diệt toàn bộ quái vật trên bản đồ. Có biểu tượng sấm sét theo dõi thời gian hồi chiêu.
+      
+      ![Menu](https://github.com/ckpsang06/Cat-Ghost-/blob/group-3/Screenshot%202026-08-20%20220820.png)
+      ![Menu](https://github.com/ckpsang06/Cat-Ghost-/blob/group-3/Screenshot%202026-08-20%20220754.png)
+
 *   **Hệ thống Quái vật (AI):** Quái vật tự động sinh ra ở hai mép màn hình một cách ngẫu nhiên và liên tục rượt đuổi người chơi. Nếu chạm vào người chơi, quái vật sẽ phát động tấn công và trừ máu người chơi.
 *   **Hệ thống âm thanh:** Tích hợp nhạc nền cho từng giai đoạn và hiệu ứng âm thanh sống động (tiếng gió, sấm sét, tiếng đọc thần chú, và tiếng quái vật chết).
